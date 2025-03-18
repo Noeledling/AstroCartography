@@ -256,15 +256,14 @@ function App() {
         const p = point as LocationPoint;
         return p.astroReading.type === 'beneficial' ? 1 : 0.5;
       })
-      .onPointClick((point: any, event: MouseEvent, coords: { lat: number; lng: number; altitude: number; }) => {
+      .onPointClick((point: any) => {
         setSelectedPoint(point as LocationPoint)
       })
       // Add lines configuration
       .arcsData(testLines)
       .arcColor((line: any) => {
         const l = line as AstroLine;
-        const color = l.gradientStart || l.color;
-        return color.replace('#', 'rgba(') + `,${l.intensity || 0.7})`;
+        return `rgba(${hexToRgb(l.color)},${l.intensity || 0.7})`;
       })
       .arcStroke((line: any) => (line as AstroLine).type === 'major' ? 0.8 : 0.4)
       .arcDashLength((line: any) => (line as AstroLine).type === 'major' ? 0.9 : 0.6)
@@ -370,9 +369,11 @@ function App() {
   // Helper function to convert hex to rgb
   const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? 
-      `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` 
-      : '255, 255, 255';
+    if (!result) return '255, 255, 255';
+    const r = parseInt(result[1], 16);
+    const g = parseInt(result[2], 16);
+    const b = parseInt(result[3], 16);
+    return `${r}, ${g}, ${b}`;
   };
 
   return (

@@ -1,49 +1,39 @@
 .welcome-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  min-height: 100vh;
-  color: white;
-  font-family: 'Noto Serif', Georgia, serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-}
-
-.welcome-title {
-  font-size: 1.75rem;
-  font-weight: 400;
-  margin: 0;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-}
-
-.welcome-text {
-  font-size: 1.75rem;
-  font-weight: 400;
-  margin: 0;
-  margin-bottom: 2rem;
-  letter-spacing: -0.01em;
-  opacity: 0.9;
-  line-height: 1.2;
-}
-
-.enter-button {
-  background: none;
-  border: none;
   color: white;
-  cursor: pointer;
-  padding: 0.5rem;
-  transition: transform 0.2s ease-in-out;
+  z-index: 10;
+}
+
+.welcome-container h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+
+.welcome-container p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
   opacity: 0.8;
 }
 
-.enter-button:hover {
-  transform: translateX(8px);
-  opacity: 1;
+.welcome-container button {
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.enter-button:focus {
-  outline: none;
-  opacity: 1;
+.welcome-container button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
 } 

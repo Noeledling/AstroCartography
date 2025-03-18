@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import './Welcome.css'
-import BirthDataForm from './BirthDataForm'
+import React from 'react';
+import './Welcome.css';
 
 interface BirthData {
   date: Date;
@@ -16,18 +15,18 @@ interface WelcomeProps {
 }
 
 const Welcome: React.FC<WelcomeProps> = ({ onSubmit }) => {
-  const [birthData, setBirthData] = useState<BirthData>({
+  const defaultData: BirthData = {
     date: new Date(),
     location: {
       lat: 40.7128,
       lng: -74.0060,
       name: "New York, USA"
     }
-  });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(birthData);
+    onSubmit(defaultData);
   };
 
   return (
@@ -41,4 +40,4 @@ const Welcome: React.FC<WelcomeProps> = ({ onSubmit }) => {
   );
 };
 
-export default Welcome 
+export default Welcome; 
