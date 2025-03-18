@@ -1,0 +1,46 @@
+.time-controls {
+  position: absolute;
+  bottom: 2rem;
+  left: calc(50% + 200px);
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  backdrop-filter: blur(10px);
+  z-index: 1001;
+}
+
+.time-controls input[type="range"] {
+  width: 200px;
+  height: 4px;
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  outline: none;
+}
+
+.time-controls input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.time-controls input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.time-display {
+  color: white;
+  font-family: monospace;
+  font-size: 1.2rem;
+  min-width: 70px;
+  text-align: center;
+  letter-spacing: 0.1em;
+} 

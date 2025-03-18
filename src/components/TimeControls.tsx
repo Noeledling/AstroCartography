@@ -1,4 +1,5 @@
 import React from 'react'
+import './TimeControls.css'
 
 interface TimeControlsProps {
   onTimeChange: (time: number) => void
@@ -6,6 +7,12 @@ interface TimeControlsProps {
 }
 
 const TimeControls: React.FC<TimeControlsProps> = ({ onTimeChange, currentTime }) => {
+  const formatTime = (time: number) => {
+    const hours = Math.floor(time);
+    const minutes = Math.round((time % 1) * 60);
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  };
+
   return (
     <div className="time-controls">
       <input
@@ -16,7 +23,7 @@ const TimeControls: React.FC<TimeControlsProps> = ({ onTimeChange, currentTime }
         value={currentTime}
         onChange={(e) => onTimeChange(parseFloat(e.target.value))}
       />
-      <span>{currentTime.toFixed(1)}:00</span>
+      <span className="time-display">{formatTime(currentTime)}</span>
     </div>
   )
 }
