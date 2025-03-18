@@ -11,7 +11,7 @@ import './App.css'
 
 // Update the type for the globe instance to include renderer
 declare module 'globe.gl' {
-  interface GlobeInstance {
+  export interface Globe {
     renderer(): THREE.WebGLRenderer;
     camera(): THREE.Camera;
     scene(): THREE.Scene;
