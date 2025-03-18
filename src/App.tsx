@@ -2,15 +2,42 @@ import { useEffect, useRef, useState } from 'react'
 import Globe from 'globe.gl'
 import * as THREE from 'three'
 import TimeControls from './components/TimeControls'
+import Welcome from './components/Welcome'
+import StarryBackground from './components/StarryBackground'
 import './App.css'
 
+interface BirthData {
+  date: Date;
+  location: {
+    lat: number;
+    lng: number;
+    name: string;
+  };
+}
+
 function App() {
+  // Temporary default birth data for development
+  const defaultBirthData: BirthData = {
+    date: new Date('1990-01-01T00:00:00'),
+    location: {
+      lat: 40.7128,  // New York coordinates as example
+      lng: -74.0060,
+      name: "New York"
+    }
+  }
+
+  const [birthData, setBirthData] = useState<BirthData | null>(defaultBirthData)
   const globeEl = useRef<HTMLDivElement>(null)
   const globeInstance = useRef<any>(null)
   const [currentTime, setCurrentTime] = useState(12) // Start at noon
 
+  const handleBirthDataSubmit = (data: BirthData) => {
+    setBirthData(data)
+  }
+
+  // Only initialize globe after birth data is submitted
   useEffect(() => {
-    if (!globeEl.current) return
+    if (!birthData || !globeEl.current) return
 
     // Create custom material for day/night cycle
     const dayTexture = new THREE.TextureLoader().load('//unpkg.com/three-globe/example/img/earth-day.jpg')
@@ -60,12 +87,19 @@ function App() {
     // Store globe instance for later use
     globeInstance.current = globe
 
-    // Set fixed camera position
-    globe.pointOfView({ lat: 0, lng: 0, altitude: 2.5 })
+    // Set initial camera position to birth location
+    globe.pointOfView({
+      lat: birthData.location.lat,
+      lng: birthData.location.lng,
+      altitude: 2.5
+    })
+
+    // Configure controls
     globe.controls().autoRotate = false
     globe.controls().enableZoom = true
     globe.controls().minDistance = 200
-    globe.controls().maxDistance = 800
+    globe.controls().maxDistance = 400
+    globe.controls().enablePan = false
 
     // Add ambient light for base illumination
     const ambientLight = new THREE.AmbientLight(0x222222)
@@ -102,7 +136,7 @@ function App() {
       window.removeEventListener('resize', handleResize)
       globe._destructor()
     }
-  }, []) // Only run once on mount
+  }, [birthData]) // Only run when birth data changes
 
   const handleTimeChange = (time: number) => {
     setCurrentTime(time)
@@ -132,8 +166,17 @@ function App() {
 
   return (
     <div className="app-container">
-      <div ref={globeEl} className="globe-container" />
-      <TimeControls currentTime={currentTime} onTimeChange={handleTimeChange} />
+      {!birthData ? (
+        <>
+          <StarryBackground />
+          <Welcome onSubmit={handleBirthDataSubmit} />
+        </>
+      ) : (
+        <>
+          <div ref={globeEl} className="globe-container" />
+          <TimeControls currentTime={currentTime} onTimeChange={handleTimeChange} />
+        </>
+      )}
     </div>
   )
 }

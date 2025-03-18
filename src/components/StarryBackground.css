@@ -1,0 +1,22 @@
+.starry-background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.starry-background {
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  background-image: url('/starry-background.jpg');
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+} 
